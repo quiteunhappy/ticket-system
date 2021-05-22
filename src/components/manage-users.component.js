@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import CreateUser from "./create-user.component";
+import { Button } from 'bootstrap';
 
 const User = props => (
     <tr>
@@ -9,11 +10,11 @@ const User = props => (
         <td>{props.user.email}</td>
         <td>{props.user.role}</td>
         <td>
-            <a href="#" onClick={() => { 
+            <Button href="#" onClick={() => { 
                 if(window.confirm('Are you sure you want to delete this user?')) 
                     props.deleteUser(props.user._id) 
             }} 
-            className="badge badge-danger">Delete</a>
+            className="badge badge-danger">Delete</Button>
         </td>
     </tr>
 );

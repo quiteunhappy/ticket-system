@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
-export default class MarkButton extends React.Component {
+import { Button } from 'bootstrap'
+export default class MarkButton extends Component {
 	constructor(props) {
 		super(props);
 
@@ -85,10 +85,10 @@ export default class MarkButton extends React.Component {
 	render() {
 		return(
             this.state.status !== 'Resolved' ? 
-            <a href="#" onClick={this.handleClick} 
-            className="badge badge-success">Mark as Resolved</a> :
-            <a href="#" onClick={this.handleClick}
-            className="badge badge-secondary">Mark as Open</a>          
+            <Button href="#" onClick={this.handleClick} 
+            className="badge badge-success">Mark as Resolved</Button> :
+            <Button href="#" onClick={this.handleClick}
+            className="badge badge-secondary">Mark as Open</Button>          
 		);
 	}
 }

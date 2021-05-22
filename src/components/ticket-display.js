@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import MarkButton from './mark-button';
+import { Button } from 'bootstrap';
 
 let getPriorities = (lvl) => {
     switch(lvl) {
@@ -60,11 +61,11 @@ export default class Ticket extends Component {
                 <td>
                     <Link to={"/edit/"+this.props.ticket._id} className="badge badge-info">Edit</Link>
                     <br></br>
-                    <a href="#" onClick={() => { 
+                    <Button href="#" onClick={() => { 
                         if(window.confirm('Are you sure you want to delete this ticket?')) 
                             this.props.deleteTicket(this.props.ticket._id) 
                     }} 
-                    className="badge badge-danger">Delete</a>
+                    className="badge badge-danger">Delete</Button>
                     <br></br>
                     
                     <MarkButton 

@@ -37,6 +37,7 @@ export default class StatusChart extends Component {
                 this.state.tickets.map(ticket => {
                 	// get number of each type and update state data
                 	switch(ticket.status){
+						default:
                 		case 'Open': 
                 			this.open++;
                 			break;
@@ -53,6 +54,7 @@ export default class StatusChart extends Component {
                 			data: [this.open, this.progress, this.resolved]
         			 	}]
         			}});
+					return null;
                 });
             })
             .catch(error => console.log(error));

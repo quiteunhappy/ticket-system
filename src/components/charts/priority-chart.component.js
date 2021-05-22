@@ -48,6 +48,7 @@ export default class PriorityChart extends Component {
                 	// get number of each priority and update state data
                 	if(ticket.status !== 'Resolved'){
 	                	switch(ticket.priority){
+							default:
 	                		case 'Low': 
 	                			this.low++;
 	                			break;
@@ -65,6 +66,7 @@ export default class PriorityChart extends Component {
                 			data: [this.low, this.medium, this.high]
         			 	}]
         			}});
+					return null;
                 });
             })
             .catch(error => console.log(error));

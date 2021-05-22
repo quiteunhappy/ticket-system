@@ -39,6 +39,7 @@ export default class TypeChart extends Component {
                 	// get number of each type and update state data
                 	if(ticket.status !== 'Resolved'){
 	                	switch(ticket.type){
+							default:
 	                		case 'Bug/Error': 
 	                			this.bug++;
 	                			break;
@@ -59,9 +60,11 @@ export default class TypeChart extends Component {
                 			data: [this.bug, this.feature, this.security, this.other]
         			 	}]
         			}});
+					return null;
                 });
             })
             .catch(error => console.log(error));
+			return null;
     }
 
 	render() {

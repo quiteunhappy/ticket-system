@@ -3,13 +3,13 @@ import axios from 'axios';
 import Ticket from './ticket-display';
 
 export default class TicketList extends Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.deleteTicket = this.deleteTicket.bind(this);
+        this.deleteTicket = this.deleteTicket.bind(this);
 
-		this.state = { tickets: [] };
-	}
+        this.state = { tickets: [] };
+    }
 
     componentDidMount() {
         axios.get('http://localhost:5000/tickets/')
@@ -20,44 +20,52 @@ export default class TicketList extends Component {
     }
 
     deleteTicket(id) {
-	    axios.delete('http://localhost:5000/tickets/'+id)
-	        .then(res => { console.log(res.data)});
+        axios.delete('http://localhost:5000/tickets/' + id)
+            .then(res => { console.log(res.data) });
 
-	    // update tickets array to all tickets without matching id
-	    this.setState({
-	        tickets: this.state.tickets.filter(el => el._id !== id)
-	    })
-	}
-
-	getOpenList() {
-        return this.state.tickets.map(currentTicket => {
-            if(currentTicket.status !== 'Resolved') 
-                return <Ticket 
-            			ticket={currentTicket} 
-            			deleteTicket={this.deleteTicket}
-                        key={currentTicket._id}
-                        />;
-        })
-	}
-
-    getResolvedList() {
-        return this.state.tickets.map(currentTicket => {
-            if(currentTicket.status === 'Resolved') 
-                return <Ticket 
-                        ticket={currentTicket} 
-                        deleteTicket={this.deleteTicket}
-                        key={currentTicket._id}
-                        />;
+        // update tickets array to all tickets without matching id
+        this.setState({
+            tickets: this.state.tickets.filter(el => el._id !== id)
         })
     }
 
-	render() {
-		return(
-			<div>
+    getOpenList() {
+        return this.state.tickets.map(currentTicket => {
+            if (currentTicket.status !== 'Resolved') {
+                return <Ticket
+                    ticket={currentTicket}
+                    deleteTicket={this.deleteTicket}
+                    key={currentTicket._id}
+                />
+            }
+            else {
+                return <></>
+            };
+        })
+    }
+
+    getResolvedList() {
+        return this.state.tickets.map(currentTicket => {
+            if (currentTicket.status === 'Resolved') {
+                return <Ticket
+                    ticket={currentTicket}
+                    deleteTicket={this.deleteTicket}
+                    key={currentTicket._id}
+                />
+            }
+            else {
+                return <></>
+            };
+        })
+    }
+
+    render() {
+        return (
+            <div>
                 <br></br>
-				<h3>Open Tickets</h3>
-                    <table className="table">
-                        <thead className="thead-light">
+                <h3>Open Tickets</h3>
+                <table className="table">
+                    <thead className="thead-light">
                         <tr>
                             <th>Title</th>
                             <th>Description</th>
@@ -68,15 +76,15 @@ export default class TicketList extends Component {
                             <th>Type</th>
                             <th>Actions</th>
                         </tr>
-                        </thead>
-                        <tbody>
-                            { this.getOpenList() }
-                        </tbody>
-                    </table>
+                    </thead>
+                    <tbody>
+                        {this.getOpenList()}
+                    </tbody>
+                </table>
                 <br></br>
                 <h3>Resolved Tickets</h3>
-                    <table className="table">
-                        <thead className="thead-light">
+                <table className="table">
+                    <thead className="thead-light">
                         <tr>
                             <th>Title</th>
                             <th>Description</th>
@@ -87,12 +95,12 @@ export default class TicketList extends Component {
                             <th>Type</th>
                             <th>Actions</th>
                         </tr>
-                        </thead>
-                        <tbody>
-                            { this.getResolvedList() }
-                        </tbody>
-                    </table>
-			</div>
-		);
-	}
+                    </thead>
+                    <tbody>
+                        {this.getResolvedList()}
+                    </tbody>
+                </table>
+            </div>
+        );
+    }
 }

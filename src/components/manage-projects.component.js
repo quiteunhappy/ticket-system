@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import CreateProject from "./create-project.component";
+import { Button } from 'bootstrap';
 
 const Project = props => (
     <tr>
         <td>{props.project.name}</td>
         <td>
-            <a href="#" onClick={() => { 
+            <Button href="#" onClick={() => { 
                 if(window.confirm('Are you sure you want to delete this project?')) 
                     props.deleteProject(props.project._id) 
             }} 
-            className="badge badge-danger">Delete</a>
+            className="badge badge-danger">Delete</Button>
         </td>
     </tr>
 );
