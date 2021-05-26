@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
 const roles = ['Admin', 'Project Manager', 'Developer', 'Other'];
-
 export default class CreateUser extends Component {
     constructor(props) {
         super(props);
@@ -19,10 +17,9 @@ export default class CreateUser extends Component {
         }
     }
 
-    componentDidMount() {
-        // set default values for state properties
+    componentDidMount(e) {
         this.setState({
-            role: roles[0]
+            role: e.target.value
         });
     }
 
@@ -55,7 +52,7 @@ export default class CreateUser extends Component {
 
         console.log(user);
 
-        axios.post('http://localhost:5000/users/create', user)
+        axios.post(window.API_URL + 'users/create', user)
             .then(res => console.log(res.data));
 
         // clear form

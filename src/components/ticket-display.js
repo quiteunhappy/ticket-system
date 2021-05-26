@@ -28,16 +28,23 @@ export default class Ticket extends Component {
 
     componentDidMount() {
         // default state of ticket
-        axios.get('http://localhost:5000/tickets/'+this.props.ticket._id)
+        axios.get(window.API_URL + 'tickets/'+this.props.ticket.id, {
+            headers:{
+                'Authorization': "Bearer " + window.sessionStorage.getItem("token")
+            }
+            })
             .then(res => {
                 this.setState({
+                    category: res.data.category,
                     title: res.data.title,
-                    description: res.data.description,
-                    projectName: res.data.projectName,
-                    assignee: res.data.assignee,
-                    priority: res.data.priority,
+                    clientReference: res.data.clientReference,
+                    created: res.data.created,
+                    createdBy: res.data.createdBy,
+                    deleted: res.data.deleted,
                     status: res.data.status,
-                    type: res.data.type
+                    type: res.data.type,
+                    project: res.data.project.name,
+                    description: res.data.description
                 })
             })
             .catch(error => console.log(error));
@@ -59,31 +66,31 @@ export default class Ticket extends Component {
                 <td>{this.props.ticket.status}</td>
                 <td>{this.props.ticket.type}</td>
                 <td>
-                    <Link to={"/edit/"+this.props.ticket._id} className="badge badge-info">Edit</Link>
+                    <Link to={"/edit/"+this.props.ticket.id} className="badge badge-info">Edit</Link>
                     <br></br>
-                    <Button href="#" onClick={() => { 
+                    {/* <Button onClick={() => { 
                         if(window.confirm('Are you sure you want to delete this ticket?')) 
-                            this.props.deleteTicket(this.props.ticket._id) 
+                            this.props.deleteTicket(this.props.ticket.id) 
                     }} 
-                    className="badge badge-danger">Delete</Button>
+                    className="badge badge-danger">Delete</Button> */}
                     <br></br>
                     
-                    <MarkButton 
+                    {/* <MarkButton 
                         mark={this.props.ticket.status} 
                         ticketID={this.props.ticket._id}
-                    />
-                    {   /* *****
-                        *  FIX THIS TO UPDATE STATE
-                        * *****/
+                    /> 
+                        /* *****
+                         *  FIX THIS TO UPDATE STATE
+                         * *****/
                         // this.props.ticket.status !== 'Resolved' ? 
-                        // <a href="#" onClick={() => {
+                        // <Button onClick={() => {
                         //     this.props.ticket.status = 'Resolved' 
                         // }} 
-                        // className="badge badge-success">Mark as Resolved</a> :
-                        // <a href="#" onClick={() => {
+                        // className="badge badge-success">Mark as Resolved</Button> :
+                        // <Button onClick={() => {
                         //     this.props.ticket.status = 'Open' 
                         // }} 
-                        // className="badge badge-secondary">Mark as Open</a>
+                        // className="badge badge-secondary">Mark as Open</Button>
                     }
                 </td>
             </tr>

@@ -14,24 +14,15 @@ import ManageProjects from "./components/manage-projects.component";
 import EditTicket from "./components/edit-ticket.component";
 import axios from 'axios';
 
+import { TicketContainer } from './components/ticket-list-container.component';
+
+import moment from 'moment';
+moment().format();
+
 export default function App() {
   const history = useHistory();
   window.appHistory = history;
-  const VerifyToken = (params) => {
-    console.log(params);
-    axios.post('https://localhost:44328/VerifyLogin', "\"" + params + "\"", {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((response) => {
-      if (!response) {
-        console.log(response.data);
-        window.sessionStorage.removeItem("token");
-        return false;
-      }
-    });
-    return true;
-  }
+
   if (window.sessionStorage.getItem("token") == null) {
     console.log("no token");
     return (
@@ -39,29 +30,21 @@ export default function App() {
     )
   }
   else {
-    if (!VerifyToken(window.sessionStorage.getItem("token"))) {
-      console.log("bad token");
-      return (
-        <LogIn />
-      )
-    }
-    else {
-      return (
-        <Router>
-          <Navbar />
-          <div className="wrapper">
-            <Sidebar />
-            <div id="content">
-              <Route path="/" exact component={Dashboard} />
-              <Route path="/tickets/create" component={CreateTicket} />
-              <Route path="/manage-users" component={ManageUsers} />
-              <Route path="/users/create" component={CreateUser} />
-              <Route path="/manage-projects" component={ManageProjects} />
-              <Route path="/edit/:id" component={EditTicket} />
-            </div>
+    return (
+      <Router>
+        <Navbar />
+        <div className="wrapper">
+          <Sidebar />
+          <div id="content">
+            <Route path="/" exact component={TicketContainer} />
+            <Route path="/tickets/create" component={CreateTicket} />
+            <Route path="/manage-users" component={ManageUsers} />
+            <Route path="/users/create" component={CreateUser} />
+            <Route path="/manage-projects" component={ManageProjects} />
+            <Route path="/edit/:id" component={EditTicket} />
           </div>
-        </Router>
-      );
-    }
+        </div>
+      </Router>
+    );
   }
 }

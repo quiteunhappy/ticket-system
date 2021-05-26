@@ -16,7 +16,7 @@ export default class CreateProject extends Component {
 
     componentDidMount() {
         // get list of projects to set default project
-        axios.get('http://localhost:5000/projects/')
+        axios.get(window.API_URL + 'projects')
             .then(res => {
                 if(res.data.length > 0) {
                     this.setState({

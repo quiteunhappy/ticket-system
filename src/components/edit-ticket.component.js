@@ -33,7 +33,7 @@ export default class EditTicket extends Component {
 
     componentDidMount() {
         // default state of ticket
-        axios.get('http://localhost:5000/tickets/'+this.props.match.params.id)
+        axios.get(window.API_URL + 'tickets/' + this.props.match.params.id)
             .then(res => {
                 this.setState({
                     title: res.data.title,
@@ -48,7 +48,7 @@ export default class EditTicket extends Component {
             .catch((error) => { console.log(error); })
 
         // get list of users to select from
-        axios.get('http://localhost:5000/users/')
+        axios.get(window.API_URL + 'users')
         .then(res => {
             if(res.data.length > 0) {
                 this.setState({
@@ -59,7 +59,7 @@ export default class EditTicket extends Component {
         .catch((error) => { console.log(error); })
 
         // get list of projects to select from
-        axios.get('http://localhost:5000/projects/')
+        axios.get(window.API_URL + 'projects')
         .then(res => {
             if(res.data.length > 0) {
                 this.setState({
@@ -125,7 +125,7 @@ export default class EditTicket extends Component {
             type: this.state.type
         }
 
-        axios.post('http://localhost:5000/tickets/update/' + this.props.match.params.id, ticket)
+        axios.post(window.API_URL + 'update/' + this.props.match.params.id, ticket)
             .then(res => console.log(res.data));
             
         alert('Successfully updated.');

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React from 'react';
 import GoogleLogin from 'react-google-login';
-import { useHistory } from 'react-router';
 
 export default function LogIn() {
     const responseGoogle = (response) => {
@@ -13,9 +12,11 @@ export default function LogIn() {
         })
             .then((reply) => {
                 window.sessionStorage.setItem("token", reply.data);
+            })
+            .then(() => {
+                console.log("redirect");
+                window.location.pathname = "/";
             });
-        console.log("redirect");
-        window.location.reload(false);
     }
 
     return (
